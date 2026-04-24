@@ -38,14 +38,14 @@ int main() {
         //random number for probability
         int random = rand() % (MAX-MIN+1) + MIN;
         //55% probability the car at the head of the line pays and leaves
-        if (random <= 55) {
+        if (random > 0 && random <= 55) {
             cout << "Car paid: ";
             cout << "[" << Cars.front().getYear() << " " << Cars.front().getMake();
-            cout << endl;
+            cout << " (" << Cars.front().getTransponder() << ")]\n";
             Cars.pop_front();
         }
         //45% probability that another car joins the line
-        if (random >= 55) {
+        if (random > 55 && random <= 100) {
             Car car3;
             Cars.push_back(car3);
             cout << "Joined lane: ";
