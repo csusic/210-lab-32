@@ -28,6 +28,7 @@ int main() {
     //output car objects
     car1.print();
     car2.print();
+    cout << endl;
     
     int counter = 1; //for counting
     for (int i = 0; i < Cars.size(); i++) {
@@ -36,9 +37,8 @@ int main() {
         int random = rand() % (MAX-MIN+1) + MIN;
         //55% probability the car at the head of the line pays and leaves
         if (random <= 55) {
-            cout << "Car paid: ";
+            cout << "Car paid: " << endl;
             Cars.pop_front();
-            cout << endl;
         }
         //45% probability that another car joins the line
         if (random >= 55) {
@@ -46,8 +46,9 @@ int main() {
             Cars.push_back(car3);
             cout << "Joined lane: ";
             car3.print();
-            cout << endl;
         }
+        cout << "Queue: " << endl << endl;
+        //Cars.print();
     }
 
     return 0;
