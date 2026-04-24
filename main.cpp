@@ -29,18 +29,24 @@ int main() {
     car1.print();
     car2.print();
     
-    for (int i = 0; i < 6; i++) {
+    int counter = 1; //for counting
+    for (int i = 0; i < Cars.size(); i++) {
+        cout << "Time: " << counter++ << " Operation: ";
         //random number
         int random = rand() % (MAX-MIN+1) + MIN;
         //55% probability the car at the head of the line pays and leaves
         if (random <= 55) {
+            cout << "Car paid: ";
             Cars.pop_front();
+            cout << endl;
         }
         //45% probability that another car joins the line
         if (random >= 55) {
             Car car3;
             Cars.push_back(car3);
+            cout << "Joined lane: ";
             car3.print();
+            cout << endl;
         }
     }
 
