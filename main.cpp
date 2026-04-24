@@ -47,8 +47,12 @@ int main() {
             cout << "Joined lane: ";
             car3.print();
         }
-        cout << "Queue: " << endl << endl;
-        //Cars.print();
+        cout << "Queue: " << endl;
+        for (auto& c : Cars) {
+            cout << "[" << c.getYear() << " " << c.getMake();
+            cout << " (" << c.getTransponder() << ")]\n";
+        }
+        cout << endl;
     }
 
     return 0;
