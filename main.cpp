@@ -23,21 +23,25 @@ int main() {
     Car car1;
     Car car2;
     //push back car objects
-    Cars.push_back(car1);
-    Cars.push_back(car2);
+    Cars.push_front(car1);
+    Cars.push_front(car2);
     //output car objects
-    car1.print();
     car2.print();
+    car1.print();
     cout << endl;
     
     int counter = 1; //for counting
-    for (int i = 0; i < Cars.size(); i++) {
+    //Car simulation 
+    while (!Cars.empty()) {
+        //header
         cout << "Time: " << counter++ << " Operation: ";
-        //random number
+        //random number for probability
         int random = rand() % (MAX-MIN+1) + MIN;
         //55% probability the car at the head of the line pays and leaves
         if (random <= 55) {
-            cout << "Car paid: " << endl;
+            cout << "Car paid: ";
+            cout << "[" << Cars.front().getYear() << " " << Cars.front().getMake();
+            cout << endl;
             Cars.pop_front();
         }
         //45% probability that another car joins the line
@@ -47,6 +51,7 @@ int main() {
             cout << "Joined lane: ";
             car3.print();
         }
+        //print updated queue
         cout << "Queue: " << endl;
         for (auto& c : Cars) {
             cout << "[" << c.getYear() << " " << c.getMake();
@@ -54,6 +59,7 @@ int main() {
         }
         cout << endl;
     }
+    cout << "Empty";
 
     return 0;
 }
