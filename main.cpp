@@ -24,7 +24,6 @@ int main() {
     //output car objects
     car1.print();
     car2.print();
-    car3.print();
     
     //55% probability the car at the head of the line pays and leaves
     Cars.pop_front();
