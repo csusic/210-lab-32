@@ -11,12 +11,16 @@ using namespace std;
 const int INITIAL_SIZE = 2;
 //minimum and maximum values for random number
 const int MIN = 1, MAX = 100;
+//toll booth lanes
+const int NUM_LANES = 4;
 
 int main() {
     //declarations
     srand(time(0));
     //deque of cars
     deque<Car> Cars(INITIAL_SIZE);
+    //array to hold toll booths
+    //array<deque<Car>> lanes(NUM_LANES);
     
     cout << "Initial queue: " << endl;
     //two car objects
@@ -30,6 +34,12 @@ int main() {
     car1.print();
     cout << endl;
     
+    //two initial lanes
+    //for (int i = 0; i < NUM_LANES; i++) {
+        //lanes[i].push_back(Car());
+        //lanes[i].push_back(Car());
+    //}
+    
     int counter = 1; //for counting
     //Car simulation 
     while (!Cars.empty()) {
@@ -37,19 +47,23 @@ int main() {
         cout << "Time: " << counter++ << " Operation: ";
         //random number for probability
         int random = rand() % (MAX-MIN+1) + MIN;
-        //55% probability the car at the head of the line pays and leaves
-        if (random > 0 && random <= 55) {
+        //46% probability the car at the head of the line pays and leaves
+        if (random > 0 && random <= 46) {
             cout << "Car paid: ";
             cout << "[" << Cars.front().getYear() << " " << Cars.front().getMake();
             cout << " (" << Cars.front().getTransponder() << ")]\n";
             Cars.pop_front();
         }
-        //45% probability that another car joins the line
-        if (random > 55 && random <= 100) {
+        //39% probability that another car joins the line
+        if (random > 46 && random <= 85) {
             Car car3;
             Cars.push_back(car3);
             cout << "Joined lane: ";
             car3.print();
+        }
+        //15% probability the rear car will shift lanes
+        if (random > 85 && random <= 100) {
+            
         }
         //print updated queue
         cout << "Queue: " << endl;
