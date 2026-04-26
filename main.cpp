@@ -20,8 +20,10 @@ const int TIME_PERIODS = 20;
 int main() {
     //declarations
     srand(time(0));
-    //for counting
-    int counter = 1;
+    //for counting lanes
+    int laneCounter = 1;
+    //for counting time
+    int timeCounter = 1;
     //deque of cars
     deque<Car> Cars(INITIAL_SIZE);
     //array to hold toll booths
@@ -30,16 +32,23 @@ int main() {
     cout << "Initial queue: " << endl;
     //two initial lanes
     for (int i = 0; i < NUM_LANES; i++) {
-        cout << "Lane" << counter++ << ":";
+        cout << "Lane " << laneCounter++ << ":";
+        //push back car objects
         lanes[i].push_back(Car());
         lanes[i].push_back(Car());
         cout << endl;
+        //output car objects
+        for (auto& c : lanes[i]) {
+            cout << "[" << c.getYear() << " " << c.getMake();
+            cout << " (" << c.getTransponder() << ")]\n";
+        }
     }
+    cout << endl;
     
     //Car simulation 
     for (int i = 0; i < TIME_PERIODS; i++) {
         //header
-        cout << "Time: " << counter++ << " Operation: ";
+        cout << "Time: " << timeCounter++ << " Operation: ";
         //random number for probability
         int random = rand() % (MAX-MIN+1) + MIN;
         //46% probability the car at the head of the line pays and leaves
