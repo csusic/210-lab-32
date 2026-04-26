@@ -12,7 +12,7 @@ using namespace std;
 //initial size for the deque of cars
 const int INITIAL_SIZE = 2;
 //minimum and maximum values for random number
-const int MIN = 1, MAX = 100;
+const int MIN = 1, MAX = 100, MIN1 = 0, MAX1 = 3;
 //toll booth lanes
 const int NUM_LANES = 4;
 //number of time periods for the simulation
@@ -25,8 +25,6 @@ int main() {
     int laneCounter1 = 1;
     //for counting time
     int timeCounter = 1;
-    //deque of cars
-    //deque<Car> Cars(INITIAL_SIZE);
     //array to hold toll booths
     array<deque<Car>, NUM_LANES> lanes;
     
@@ -76,18 +74,20 @@ int main() {
             }
             //15% probability the rear car will shift lanes
             if (timeRandom > 85 && timeRandom <= 100) {
+                int swapRandom = rand() % (MAX1-MIN1+1) + MIN1;
                 cout << "Switched: ";
                 cout << "[" << lanes[i].back().getYear() << " ";
                 cout << lanes[i].back().getMake();
                 cout << " (" << lanes[i].back().getTransponder() << ")]";
-                //swap(lanes[1]), lanes[4]);
+                //lane swap
+                lanes[i].swap(lanes[swapRandom]);
             }
             //if lanes are empty
             if (lanes[i].empty()) {
                 //random number for lane probability
                 int random = rand() % (MAX-MIN+1) + MIN;
                 //50% chance of car joining the deque
-                if (random > 50 && random <=100) {
+                if (random > 0 && random <=100) {
                     Car car;
                     lanes[i].push_back(car);
                     cout << "\nNew Car Joined: ";
@@ -108,6 +108,7 @@ int main() {
                 cout << "\t[" << c.getYear() << " " << c.getMake();
                 cout << " (" << c.getTransponder() << ")]\n";
             }
+            //if lanes are empty
             if (lanes[i].empty()) {
                 cout << "\tEmpty\n";
             }
