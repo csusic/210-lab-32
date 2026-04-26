@@ -25,7 +25,7 @@ int main() {
     //for counting time
     int timeCounter = 1;
     //deque of cars
-    deque<Car> Cars(INITIAL_SIZE);
+    //deque<Car> Cars(INITIAL_SIZE);
     //array to hold toll booths
     array<deque<Car>, NUM_LANES> lanes;
     
@@ -47,42 +47,49 @@ int main() {
     
     //Car simulation 
     for (int i = 0; i < TIME_PERIODS; i++) {
-        //header
+        //time header
         cout << "Time: " << timeCounter++ << endl;
-        //to count the lanes
+        //lane counter
         int laneCounter2 = 1;
         for (int i = 0; i < NUM_LANES; i++) {
+            //lane header
             cout << "Lane: " << laneCounter2++ << " ";
             //random number for time probability
             int timeRandom = rand() % (MAX-MIN+1) + MIN;
             //46% probability the car at the head of the line pays and leaves
             if (timeRandom > 0 && timeRandom <= 46) {
                 cout << "Paid: ";
-                cout << "[" << lanes[0].front().getYear() << " " << lanes[0].front().getMake();
-                cout << " (" << lanes[0].front().getTransponder() << ")]";
-                lanes[0].pop_front();
+                cout << "[" << lanes[i].front().getYear() << " " << lanes[i].front().getMake();
+                cout << " (" << lanes[i].front().getTransponder() << ")]";
+                lanes[i].pop_front();
             }
             //39% probability that another car joins the line
             if (timeRandom > 46 && timeRandom <= 85) {
                 Car car3;
-                lanes[0].push_back(car3);
+                lanes[i].push_back(car3);
                 cout << "Joined: ";
-                cout << "[" << lanes[0].back().getYear() << " " << lanes[0].back().getMake();
-                cout << " (" << lanes[0].back().getTransponder() << ")]";
+                cout << "[" << lanes[i].back().getYear() << " " << lanes[i].back().getMake();
+                cout << " (" << lanes[i].back().getTransponder() << ")]";
             }
             //15% probability the rear car will shift lanes
             if (timeRandom > 85 && timeRandom <= 100) {
-                cout << "Shift";
+                cout << "Switched: ";
+                lanes[i].back();
             }
             cout << endl;
         }
-        //queue header
-        cout << "Queue: " << endl;
+        //print updated queue
+        //queue counter
+        int queueCounter = 1;
         for (int i = 0; i < NUM_LANES; i++) {
-            //print updated queue
+            //queue header
+            cout << "Lane " << queueCounter++ <<  " Queue: " << endl;
             for (auto& c : lanes[i]) {
-                cout << "[" << c.getYear() << " " << c.getMake();
+                cout << "\t[" << c.getYear() << " " << c.getMake();
                 cout << " (" << c.getTransponder() << ")]\n";
+            }
+            if (lanes[i].empty()) {
+                cout << "\tEmpty\n";
             }
         }
         cout << endl;
