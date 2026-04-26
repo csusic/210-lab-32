@@ -1,5 +1,6 @@
 // COMSC-210 | Lab 33 | Christine Susic
 
+#include <algorithm> 
 #include <iostream>
 #include <iomanip>
 #include <array>
@@ -59,7 +60,8 @@ int main() {
             //46% probability the car at the head of the line pays and leaves
             if (timeRandom > 0 && timeRandom <= 46) {
                 cout << "Paid: ";
-                cout << "[" << lanes[i].front().getYear() << " " << lanes[i].front().getMake();
+                cout << "[" << lanes[i].front().getYear() << " ";
+                cout << lanes[i].front().getMake();
                 cout << " (" << lanes[i].front().getTransponder() << ")]";
                 lanes[i].pop_front();
             }
@@ -68,13 +70,31 @@ int main() {
                 Car car3;
                 lanes[i].push_back(car3);
                 cout << "Joined: ";
-                cout << "[" << lanes[i].back().getYear() << " " << lanes[i].back().getMake();
+                cout << "[" << lanes[i].back().getYear() << " ";
+                cout << lanes[i].back().getMake();
                 cout << " (" << lanes[i].back().getTransponder() << ")]";
             }
             //15% probability the rear car will shift lanes
             if (timeRandom > 85 && timeRandom <= 100) {
                 cout << "Switched: ";
-                lanes[i].back();
+                cout << "[" << lanes[i].back().getYear() << " ";
+                cout << lanes[i].back().getMake();
+                cout << " (" << lanes[i].back().getTransponder() << ")]";
+                //swap(lanes[1]), lanes[4]);
+            }
+            //if lanes are empty
+            if (lanes[i].empty()) {
+                //random number for lane probability
+                int random = rand() % (MAX-MIN+1) + MIN;
+                //50% chance of car joining the deque
+                if (random > 50 && random <=100) {
+                    Car car;
+                    lanes[i].push_back(car);
+                    cout << "\nNew Car Joined: ";
+                    cout << "[" << lanes[i].back().getYear() << " ";
+                    cout << lanes[i].back().getMake();
+                    cout << " (" << lanes[i].back().getTransponder() << ")]";
+                }
             }
             cout << endl;
         }
