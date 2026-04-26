@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <array>
 #include <string>
 #include <deque>
 #include "Car.h"
@@ -13,6 +14,8 @@ const int INITIAL_SIZE = 2;
 const int MIN = 1, MAX = 100;
 //toll booth lanes
 const int NUM_LANES = 4;
+//number of time periods for the simulation
+const int TIME_PERIODS = 20;
 
 int main() {
     //declarations
@@ -20,7 +23,7 @@ int main() {
     //deque of cars
     deque<Car> Cars(INITIAL_SIZE);
     //array to hold toll booths
-    //array<deque<Car>> lanes(NUM_LANES);
+    array<deque<Car>, NUM_LANES> lanes;
     
     cout << "Initial queue: " << endl;
     //two car objects
@@ -42,7 +45,7 @@ int main() {
     
     int counter = 1; //for counting
     //Car simulation 
-    while (!Cars.empty()) {
+    for (int i = 0; i < TIME_PERIODS; i++) {
         //header
         cout << "Time: " << counter++ << " Operation: ";
         //random number for probability
