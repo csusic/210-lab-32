@@ -51,46 +51,51 @@ int main() {
         cout << "Time: " << timeCounter++ << endl;
         for (int i = 0; i < NUM_LANES; i++) {
             cout << "Lane: " << laneCounter2++ << " ";
-        
-        /*//random number for lane probability
-        int random = rand() % (MAX-MIN+1) + MIN;
-        //50% chance car paying/leaving
-        if (random > 0 && random <=50) {
-            cout << "Paid: " << endl;
-        }
-        //50% chance car joining the deque
-        if (random > 50 && random <=100) {
-            cout << "Joined: " << endl;
-        }*/
-    
             //random number for time probability
             int timeRandom = rand() % (MAX-MIN+1) + MIN;
             //46% probability the car at the head of the line pays and leaves
             if (timeRandom > 0 && timeRandom <= 46) {
                 cout << "Paid: ";
-                cout << "[" << Cars.front().getYear() << " " << Cars.front().getMake();
-                cout << " (" << Cars.front().getTransponder() << ")]\n";
-                Cars.pop_front();
+                lanes[0].pop_front();
             }
             //39% probability that another car joins the line
             if (timeRandom > 46 && timeRandom <= 85) {
                 Car car3;
-                Cars.push_back(car3);
+                lanes[0].push_back(car3);
                 cout << "Joined: ";
                 car3.print();
             }
             //15% probability the rear car will shift lanes
             if (timeRandom > 85 && timeRandom <= 100) {
-                cout << "Shift";
+                cout << "Shift" << endl;
+            }
+            if (!lanes.empty())  {
+                cout << "empty" << endl;
+                //random number for lane probability
+                int random = rand() % (MAX-MIN+1) + MIN;
+                //50% chance car paying/leaving
+                if (random > 0 && random <=50) {
+                    cout << "Paid: ";
+                    lanes[0].pop_front();
+                }
+                //50% chance car joining
+                if (random > 50 && random <=100) {
+                    Car car3;
+                    lanes[0].push_back(car3);
+                    cout << "Joined: ";
+                    car3.print();
+                }
             }
         }
-        //print updated queue
-        cout << "Queue: " << endl;
-        for (auto& c : lanes[i]) {
-            cout << "[" << c.getYear() << " " << c.getMake();
-            cout << " (" << c.getTransponder() << ")]\n";
-        }
+        for (int i = 0; i < NUM_LANES; i++) {
+            //print updated queue
+            cout << "Queue: " << endl;
+            for (auto& c : lanes[i]) {
+                cout << "[" << c.getYear() << " " << c.getMake();
+                cout << " (" << c.getTransponder() << ")]\n";
+            }
         cout << endl;
+        }
     }
     cout << "Empty";
 
